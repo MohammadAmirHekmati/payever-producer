@@ -7,8 +7,10 @@ export const envValidationSchema = joi.object({
   APP_PREFIX: joi.string().required(),
 
   // RABBIT
-  RABBIT_HOST: joi.string().required(),
-  RABBIT_PORT: joi.string().required(),
-  RABBIT_PASSWORD: joi.string().required(),
-  RABBIT_USERNAME: joi.string().required(),
+  RABBIT_URL: joi.string().required(),
+
+  // MONGO
+  MONGO_URL: joi.string().required(),
+  MONGO_DATABASE: joi.string().required(),
+
 });
