@@ -28,7 +28,7 @@ export class InvoiceService {
     return await this.invoiceRepository.listByDateRange(filter);
   }
 
-  @Cron(CronExpression.EVERY_5_SECONDS) 
+  @Cron(CronExpression.EVERY_DAY_AT_NOON) 
   async generateDailySalesReport() {
     this.logger.log('Generating daily sales report...');
     
