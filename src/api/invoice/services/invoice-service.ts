@@ -6,6 +6,7 @@ import { CreateInvoiceDto } from "../dtos/create-invoice.dto";
 import { DateFilterDto } from "../dtos/date-filter.dto";
 import { RabbitMQService } from "src/utility/rabbit/services/rabbit.service";
 import { RabbitQueueEnum } from "src/utility/rabbit/enums/rabbit-queue.enum";
+import { IDailyReport } from "../interfaces/daily-report.interface";
 
 @Injectable()
 export class InvoiceService {
@@ -27,7 +28,7 @@ export class InvoiceService {
     return await this.invoiceRepository.listByDateRange(filter);
   }
 
-  @Cron(CronExpression.EVERY_DAY_AT_NOON) 
+  @Cron(CronExpression.EVERY_5_SECONDS) 
   async generateDailySalesReport() {
     this.logger.log('Generating daily sales report...');
     
@@ -40,7 +41,7 @@ export class InvoiceService {
       endDate: now
     });
 
-    const report = {
+    const report:IDailyReport = {
       date: now,
       totalInvoices: invoices.length,
       totalSales: invoices.reduce((sum, invoice) => sum + invoice.amount, 0),
